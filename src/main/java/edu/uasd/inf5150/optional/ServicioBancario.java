@@ -28,4 +28,13 @@ public class ServicioBancario {
         return repositorio.buscarPorNumero(numeroCuenta)
                 .filter(cuenta -> cuenta.getSaldo() >= minimo);
     }
+
+    public void retirar(String numeroCuenta, double cantidad)
+            throws CuentaNoEncontradaException, FondosInsuficientesException {
+        CuentaBancaria cuenta = repositorio.buscarPorNumero(numeroCuenta)
+                .orElseThrow(() -> new CuentaNoEncontradaException(
+                        "LA CUENTA " + numeroCuenta + " NO EXISTE"));
+
+        cuenta.retirar(cantidad);
+    }
 }

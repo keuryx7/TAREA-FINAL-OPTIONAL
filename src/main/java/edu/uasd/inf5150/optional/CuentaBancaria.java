@@ -34,6 +34,17 @@ public class CuentaBancaria {
         return saldo;
     }
 
+    public void retirar(double cantidad) throws FondosInsuficientesException {
+        if (cantidad <= 0) {
+            throw new IllegalArgumentException("LA CANTIDAD A RETIRAR DEBE SER POSITIVA");
+        }
+        if (cantidad > saldo) {
+            throw new FondosInsuficientesException("FONDOS INSUFICIENTES");
+        }
+
+        saldo -= cantidad;
+    }
+
     public String mostrarInformacion() {
         return String.format("CUENTA:  %s  ~  TITULAR:  %s  ~  SALDO:  %.2f",
                 numeroCuenta, titular, saldo);
